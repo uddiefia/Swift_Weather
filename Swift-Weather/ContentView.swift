@@ -7,7 +7,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             
-            BackgroundView(isNight: $isNight)
+            BackgroundView(isNight: isNight)
             
             VStack{
                 CityTextView(cityName: "Kandy, LK")
@@ -50,7 +50,7 @@ struct WeatherDayView: View {
             
             Text(dayOfWeek).font(.system(size: 16, weight: .medium, design: .default)).foregroundStyle(.white)
             Image(systemName:imageName)
-                .renderingMode(.original)
+                .symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40, height: 40)
@@ -63,10 +63,10 @@ struct WeatherDayView: View {
 
 struct BackgroundView: View {
     
-    @Binding var isNight:Bool
+    var isNight:Bool
     
     var body: some View {
-        LinearGradient(gradient: Gradient(colors: [isNight ? .black :.blue, isNight ? .gray : Color.red]), startPoint:.topLeading, endPoint:.bottomTrailing).edgesIgnoringSafeArea(.all)
+        LinearGradient(gradient: Gradient(colors: [isNight ? .black :.blue, isNight ? .gray : Color.red]), startPoint:.topLeading, endPoint:.bottomTrailing).ignoresSafeArea()
     }
 }
 
@@ -87,7 +87,7 @@ struct MainWeatherStatusView: View {
     var body: some View {
         VStack(spacing: 0){
             Image(systemName:imageName)
-                .renderingMode(.original)
+                .symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 180, height: 180)
