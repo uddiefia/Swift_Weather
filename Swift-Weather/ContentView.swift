@@ -1,29 +1,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isNight = false
+    
     var body: some View {
         ZStack {
             
-            BackgroundView(topColor: .blue, bottomColor: Color.red)
+            BackgroundView(topColor: isNight ? .black :.blue, bottomColor: isNight ? .gray :Color.red)
             
             VStack{
                 CityTextView(cityName: "Kandy, LK")
-                MainWeatherStatusView(temperature: 70, imageName: "cloud.sun.fill")
-            
+                MainWeatherStatusView(temperature: 70, imageName:isNight ? "moon.stars.fill": "cloud.sun.fill")
+                
                 HStack(spacing: 20){
-                    WeatherDayView(dayOfWeek: "TUE", imageName:"cloud.sun.fill", temperature: 30)
-                    WeatherDayView(dayOfWeek: "WED", imageName:"sun.max.fill", temperature: 40)
-                    WeatherDayView(dayOfWeek: "THU", imageName:"cloud.rain.fill", temperature: 25)
-                    WeatherDayView(dayOfWeek: "FRI", imageName:"cloud.bolt.fill", temperature: 27)
+                    WeatherDayView(dayOfWeek: "TUE", imageName:isNight ? "cloud.moon.fill":"cloud.sun.fill", temperature: 30)
+                    WeatherDayView(dayOfWeek: "WED", imageName:isNight ?"moon.fill":"sun.max.fill", temperature: 40)
+                    WeatherDayView(dayOfWeek: "THU", imageName:isNight ? "cloud.moon.rain.fill":"cloud.rain.fill", temperature: 25)
+                    WeatherDayView(dayOfWeek: "FRI", imageName:isNight ? "cloud.moon.bolt.fill":"cloud.bolt.fill", temperature: 27)
                     WeatherDayView(dayOfWeek: "SAT", imageName:"smoke.fill", temperature: 30)
                 }
                 
                 Spacer()
                 
                 Button {
-                    print("tapped")
+                    isNight.toggle()
                 } label: {
-                    WeatherButton(title: "Change Day Time", textColor: Color.red, backgroundColor:Color.white )
+                    WeatherButton(title: "Change Day Time", textColor: isNight ? .black :Color.red, backgroundColor:Color.white )
                 }
                 Spacer()
             }
